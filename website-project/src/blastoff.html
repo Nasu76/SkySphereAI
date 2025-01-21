@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SkySphere Blast Off</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" media="screen" href="css/style.css">
+  <style>
+    /* Add styles for the text */
+    .header-text {
+      position: absolute;
+      top: 40%;
+      left: 41%;
+      transform: translate(-50%, -50%);
+      font-family: 'Press Start 2P', serif;
+      font-size: 50px;
+      color: white;
+      z-index: 3;
+      animation: glitch 2s infinite;
+      position: relative;
+    }
+
+    .header-text:before,
+    .header-text:after {
+      content: 'Blast Off';
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: rgb(255, 255, 255);
+      background-color: rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+      clip-path: inset(0 0 0 0);
+      animation: glitch-anim 2s infinite;
+    }
+
+    .header-text:before {
+      left: -1px;
+      animation-delay: -0.5s;
+    }
+
+    .header-text:after {
+      left: 1px;
+      animation-delay: -1s;
+    }
+
+    /* Glitch Effect Keyframes */
+    @keyframes glitch {
+      0% {
+        transform: translate(0);
+      }
+      20% {
+        transform: translate(-2px, 2px);
+      }
+      40% {
+        transform: translate(2px, -2px);
+      }
+      60% {
+        transform: translate(-2px, 2px);
+      }
+      80% {
+        transform: translate(2px, -2px);
+      }
+      100% {
+        transform: translate(0);
+      }
+    }
+
+    @keyframes glitch-anim {
+      0% {
+        clip-path: inset(0 0 0 0);
+      }
+      20% {
+        clip-path: inset(5% 0 15% 0);
+      }
+      40% {
+        clip-path: inset(0 0 10% 0);
+      }
+      60% {
+        clip-path: inset(0 0 0 0);
+      }
+      80% {
+        clip-path: inset(10% 0 5% 0);
+      }
+      100% {
+        clip-path: inset(0 0 0 0);
+      }
+    }
+
+    /* Bar styles */
+    .bar-left {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 450px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-right: 2px solid white;
+      z-index: 2;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .bar-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-bottom: 2px solid white;
+      z-index: 2;
+    }
+
+    .cloud-image {
+      width: 200px;
+      height: auto;
+      margin-top: -20px;
+      z-index: 3;
+    }
+
+    /* Menu styles */
+    .menu {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      font-family: 'Press Start 2P', serif;
+      color: white;
+      text-align: center;
+      width: 100%;
+    }
+    .menu li {
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 24px;
+      position: relative;
+      width: 100%;
+    }
+    .menu li::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid white;
+      border-top: 7.5px solid transparent;
+      border-bottom: 7.5px solid transparent;
+    }
+    .menu li.selected {
+      background-color: rgba(255, 255, 255, 0.1); /* Highlight background for selected item */
+    }
+
+    /* Change the color of the selected item (Blast Off) to blue */
+    .menu li.selected a {
+      color: rgb(255, 255, 255); /* Change the text color to blue */
+    }
+
+    .menu li a {
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 2px solid #626981; /* Dark blue border */
+      padding: 50px;
+      width: 80%;
+      max-width: 800px; /* Larger width */
+    }
+
+    /* Launch Button */
+    .launch-button {
+      position: relative;
+      background-color: #0e2444;
+      color: white;
+      padding: 20px 40px;
+      font-family: 'Press Start 2P', serif;
+      font-size: 24px;
+      cursor: pointer;
+      border: none;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+      z-index: 3;
+      transition: all 0.3s ease;
+    }
+    .launch-button:hover {
+      background-color: #24244b;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
+      transform: scale(1.1);
+    }
+
+    /* particles.js container */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #030822fa;
+      z-index: 1;
+    }
+
+    /* Progress Bar */
+    .progress-bar-container {
+      display: none;
+      width: 80%;
+      max-width: 500px; /* Wider container */
+      height: 30px;
+      background-color: #0c0e1b;
+      border-radius: 15px;
+      overflow: hidden;
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0;
+      background-color: #0f284d; /* Darker blue color */
+      transition: width 1.5s ease-out; /* Faster progress */
+    }
+
+    /* Dark Box (wide and with better spacing) */
+    .dark-box {
+      position: fixed;
+      top: 60%; /* Moved further down */
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 50px;
+      color: white;
+      font-family: 'Press Start 2P', monospace;
+      text-align: left;
+      display: none;
+      z-index: 4;
+      border-radius: 10px;
+      width: 1200px; /* Made it wider */
+      line-height: 1.6; /* Increased line height for better readability */
+    }
+
+    #typingTextContainer {
+      font-size: 20px;
+      margin-top: 20px;
+      white-space: pre-wrap; /* Preserve spacing and line breaks */
+    }
+
+    /* Initializing Text with correct font */
+    .initializing-text {
+      font-family: 'Press Start 2P', serif; /* Correct font */
+      font-size: 24px;
+      color: white;
+    }
+
+    /* Color change for System Alert and Initialization */
+    .system-alert, .phase {
+      color: #001f6b; /* Navy dark blue */
+    }
+    .system-alert + br,
+    .phase + br {
+      display: block;
+      color: white; /* White color for next line text */
+    }
+  </style>
+</head>
+<body>
+
+<!-- Left bar -->
+<div class="bar-left">
+    <img src="Images/Soft3DCloud.png" alt="Cloud" class="cloud-image">
+    <ul class="menu">
+      <li><a href="index.html">Home</a></li>
+      <li class="selected"><a href="blastoff.html">Blast Off</a></li> <!-- 'selected' class stays for red button -->
+      <li><a href="skydrop.html">SKY$ DROP</a></li> <!-- SKY$ DROP button added here -->
+      <li><a href="aboutus.html">About Us</a></li>
+      <li><a href="https://t.me/skyholderbot" target="_blank">SkyHolder BOT</a></li>
+    </ul>
+  </div>
+  
+  
+  
+</div>
+
+<!-- Top bar -->
+<div class="bar-top">
+  <div class="header-text">Blast Off</div>
+</div>
+
+<!-- Hero section -->
+<div class="hero-section" id="heroSection">
+  <!-- Launch Button -->
+  <button class="launch-button" id="launchButton" onclick="startLaunch()">Launch</button>
+  
+  <!-- Initializing text (hidden initially) -->
+  <div class="initializing-text" id="initializingText" style="display: none;">Initializing...</div>
+
+  <!-- Progress Bar (hidden initially) -->
+  <div class="progress-bar-container" id="progressBarContainer">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+</div>
+
+<!-- Dark Box (hidden initially) -->
+<div class="dark-box" id="darkBox">
+  <h2 class="initialization-sequence">SkySphere AI Initialization Sequences</h2>
+  <div id="typingTextContainer"></div>
+</div>
+
+<!-- particles.js container -->
+<div id="particles-js"></div>
+
+<script src="js/lib/particles.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+// Function to start typing effect
+function typeText(text, elementId, speed) {
+  let i = 0;
+  let container = document.getElementById(elementId);
+  container.innerHTML = ''; // Clear the container before typing
+  function type() {
+    if (i < text.length) {
+      container.innerHTML += text.charAt(i);
+      i++;
+      setTimeout(type, speed);
+    }
+  }
+  type();
+}
+
+// Updated startLaunch function to include typing effect
+function startLaunch() {
+  document.getElementById('launchButton').style.display = 'none';
+  document.getElementById('initializingText').style.display = 'block'; // Show "Initializing..." text
+  document.getElementById('progressBarContainer').style.display = 'block';
+
+  let progress = 0;
+  let progressInterval = setInterval(function() {
+    progress += 10; // Increased speed
+    document.getElementById('progressBar').style.width = progress + '%';
+
+    if (progress === 100) {
+      clearInterval(progressInterval);
+      document.getElementById('progressBarContainer').style.display = 'none';
+      document.getElementById('initializingText').style.display = 'none';
+      document.getElementById('heroSection').style.display = 'none'; // Hide the outlined box
+
+      // Show dark box and start typing text
+      document.getElementById('darkBox').style.display = 'block';
+      typeText(
+        `[SYSTEM ALERT] SkySphere AI will begin soon.                Please stand by...\nInitializing core modules...\nLoading memecoin market data...\nConnecting to Solana blockchain...\nSyncing with SkySphere community...\nPreparing $SKY for launch... Everything is on track...\n\nPhase 1: Ignition\nSkySphere AI is live. Your journey begins now!\nRocket ignition sequence starting...\n\nPhase 2: Lift-off\nAccelerating into the memecoin universe!\nRocket ascending, prepare for lift-off...\n\nPhase 3: Orbit\nYou’ve reached SkySphere orbit. Explore your options!\nExploring cosmic horizons...\n\nPhase 4: Airdrop\nExclusive $SKY Airdrop detected. Claim your rewards!\nTokens raining down... Ready to claim your $SKY!`,
+
+        'typingTextContainer', 50 // Speed is 50ms per character
+      );
+    }
+  }, 800); // Faster progress update
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>About Us - SkySphere AI</title>
+  <meta name="description" content="Learn more about SkySphere AI.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General page styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      background-color: #080840;
+    }
+
+    /* Add styles for the text */
+    .header-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Press Start 2P', serif;
+      font-size: 45px;
+      color: white;
+      z-index: 3;
+    }
+
+    /* Add styles for the bars */
+    .bar-left {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 450px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-right: 2px solid white;
+      z-index: 2;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .bar-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-bottom: 2px solid white;
+      z-index: 2;
+    }
+
+    .cloud-image {
+      width: 200px;
+      height: auto;
+      margin-top: -20px;
+      z-index: 3;
+    }
+
+    /* Menu styles */
+    .menu {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      font-family: 'Press Start 2P', serif;
+      color: white;
+      text-align: center;
+      width: 100%;
+    }
+    .menu li {
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 24px;
+      position: relative;
+      width: 100%;
+    }
+    .menu li::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid white;
+      border-top: 7.5px solid transparent;
+      border-bottom: 7.5px solid transparent;
+    }
+    .menu li.selected {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .menu li a {
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 2px solid white;
+      padding: 60px;
+      width: 90%;
+      max-width: 1000px;
+    }
+    .hero-section h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .hero-section h2 {
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* particles.js container */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #060622;
+      z-index: 1;
+    }
+
+    /* Grid container for the boxes */
+    .info-box-container {
+      position: absolute;
+      top: 250px; /* Adjusted to start below the top bar */
+      left: 480px; /* Positioned to the right of the left bar */
+      display: grid;
+      grid-template-columns: 480px 480px; /* Two columns for the first four boxes */
+      grid-gap: 30px;
+      z-index: 3;
+      width: 70%;  /* Adjust width so it leaves space for the right box */
+      max-width: 1040px;
+    }
+
+    /* Info boxes */
+    .info-box {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid white;
+      padding: 30px;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+      height: 400px;  /* Increased height for better text fit */
+      overflow-y: hidden; /* Disable scrolling */
+    }
+
+    .info-box h3 {
+      font-size: 28px;
+      margin-bottom: 15px;
+    }
+
+    .info-box p {
+      font-size: 18px;
+    }
+
+    /* Style for the last box (Why Join Us) */
+    .why-join {
+      background-color: rgba(0, 0, 0, 0.7);
+      border: 2px solid white;
+      padding: 30px;
+      color: white;
+      font-family: 'Roboto', sans-serif;
+      box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.3);
+      height: 400px;  /* Increased height to match the others */
+      overflow-y: hidden; /* Disable scrolling */
+      position: absolute;
+      top: 0px; /* Positioned below the top bar */
+      right: -450px;  /* Moved closer to the other boxes */
+      width: 400px; /* Set fixed width for the right-side box */
+      z-index: 3;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Left bar -->
+<div class="bar-left">
+  <img src="Images/Soft3DCloud.png" alt="Cloud" class="cloud-image">
+  <ul class="menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blastoff.html">Blast Off</a></li>
+    <li><a href="skydrop.html">SKY$ DROP</a></li> <!-- SKY$ DROP button added here -->
+    <li class="selected"><a href="aboutus.html">About Us</a></li> <!-- 'About Us' is selected here -->
+    <li><a href="https://t.me/skyholderbot" target="_blank">SkyHolder BOT</a></li>
+  </ul>
+</div>
+
+
+<!-- Top bar -->
+<div class="bar-top">
+  <div class="header-text">About Us</div>
+</div>
+
+<!-- Information boxes arranged in grid layout -->
+<div class="info-box-container">
+  <div class="info-box">
+    <h3>Who We Are</h3>
+    <p>SkySphere is not just another meme coin—it’s a movement! Born from the need for something different in the crypto world, $SKY brings together a community of dreamers, meme-lovers, and crypto enthusiasts. We're here to show the world that blockchain can be fun, engaging, and full of memes—while still having real potential. Our goal is to create a space where everyone can participate, whether you’re an experienced crypto trader or someone new to the world of digital assets. The $SKY community is vibrant, inclusive, and constantly growing, with new ways to interact, earn rewards, and make memories together. We’re more than just a coin; we’re a cultural phenomenon in the making.</p>
+  </div>
+  <div class="info-box">
+    <h3>What We Do</h3>
+    <p>We build on the power of Solana's fast and low-cost network to create a meme coin that brings smiles, laughter, and a whole lot of community involvement. Every $SKY holder is part of the crew, whether you're trading, participating in meme contests, or just enjoying the ride to the moon. And with $SKY, the possibilities are endless. We’ve got mini-games, challenges, and fun rewards waiting for you! The team behind SkySphere is committed to constantly innovating and adding new features to enhance the experience. From interactive NFT giveaways to exclusive community events, we ensure that every member of the community has an opportunity to get involved and have fun. Join us in building something truly unique in the world of meme coins.</p>
+  </div>
+  <div class="info-box">
+    <h3>Our Vision</h3>
+    <p>At SkySphere, we believe in a future where cryptocurrency isn’t just for investors—it’s for everyone. We want to create a fun, inclusive space where the sky’s the limit. From meme contests to rewards and milestones, we’re building something bigger than just a coin—we’re building a community that’s going places! Our vision is to expand the world of meme coins beyond the confines of typical crypto communities, introducing new ways to engage and earn. Whether it's through rewards for holding, staking, or being an active participant in our various events, we are creating a system where everyone benefits, and everyone has a chance to shine.</p>
+  </div>
+  <div class="info-box">
+    <h3>SKYHOLDER BOT</h3>
+    <p>One of the coolest features of SkySphere is our SKYHOLDER BOT, which brings our community to life in real-time! The SKYHOLDER BOT helps you keep track of your $SKY holdings, show off your achievements, and interact with the community in fun, unique ways. Whether you're checking your stats, participating in exclusive giveaways, or just chatting with fellow holders, the SKYHOLDER BOT makes your experience more interactive and exciting! With features like personalized alerts for price changes, leaderboard rankings, and exclusive challenges, the bot keeps you engaged with the community and the progress of $SKY. It’s like having a dedicated companion in your crypto journey, making every interaction a little more rewarding.</p>
+  </div>
+  <div class="info-box why-join">
+    <h3>Why Join Us?</h3>
+    <p>Because $SKY is more than just a coin—it’s a lifestyle. A lifestyle where you can enjoy the memes, ride the waves of crypto, and be part of a community that’s all about having fun while chasing big dreams. Whether you're here for the memes, the vibes, or the gains, SkySphere is the place to be. We believe that the future of crypto is about creating something that resonates with people on a deeper level. It’s not just about financial gains—it’s about making lasting memories and connections. Whether you’re enjoying a friendly competition in our meme contests or collaborating with other holders on new ideas, SkySphere offers a place for you to feel connected, engaged, and part of something bigger. Join us, and let’s take the world of crypto to new heights together!</p>
+  </div>
+</div>
+
+<!-- particles.js container -->
+<div id="particles-js"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+  particlesJS('particles-js', {
+    particles: {
+      number: {
+        value: 150,
+        density: {
+          enable: true,
+          value_area: 800
+        }
+      },
+      color: {
+        value: '#ffffff'
+      },
+      shape: {
+        type: 'circle'
+      },
+      opacity: {
+        value: 0.5,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 1,
+          opacity_min: 0.1
+        }
+      },
+      size: {
+        value: 3,
+        random: true,
+        anim: {
+          enable: true,
+          speed: 40,
+          size_min: 0.1
+        }
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: '#ffffff',
+        opacity: 0.4,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 3,
+        direction: 'none',
+        random: true,
+        straight: false,
+        out_mode: 'out'
+      }
+    },
+    interactivity: {
+      detect_on: 'canvas',
+      events: {
+        onhover: {
+          enable: true,
+          mode: 'repulse'
+        },
+        onclick: {
+          enable: false,
+          mode: 'push'
+        }
+      }
+    },
+    retina_detect: true
+  });
+</script>
+
+</body>
+</html>

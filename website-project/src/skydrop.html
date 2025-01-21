@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>SKY$ DROP - SkySphere AI</title>
+  <meta name="description" content="Learn more about SkySphere AI.">
+  <meta name="author" content="Vincent Garreau" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" media="screen" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* General page styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      overflow: hidden;
+      background-color: #080840;
+    }
+
+    /* Specific color for $SKY DROP header text */
+    .skydrop-page .header-text {
+      color: #00BFFF; /* Light blue text color */
+    }
+
+    /* Text glow effect with white color */
+    .header-text {
+      font-family: 'Press Start 2P', serif;
+      font-size: 45px;
+      color: white;
+      text-align: left;
+      z-index: 3;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3), 0 0 15px rgba(255, 255, 255, 0.2);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Hover effect for the text */
+    .header-text:hover {
+      transform: translate(-50%, -50%) translateY(-5px); /* Slightly more noticeable hover */
+      transition: transform 0.2s ease-in-out;
+    }
+
+    /* Add styles for the bars */
+    .bar-left {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 450px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-right: 2px solid white;
+      z-index: 2;
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .bar-top {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-bottom: 2px solid white;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px; /* Padding for spacing */
+    }
+
+    .cloud-image {
+      width: 200px;
+      height: auto;
+      margin-top: -20px;
+      z-index: 3;
+    }
+
+    /* Menu styles */
+    .menu {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      font-family: 'Press Start 2P', serif;
+      color: white;
+      text-align: center;
+      width: 100%;
+    }
+    .menu li {
+      padding: 20px 0;
+      cursor: pointer;
+      font-size: 24px;
+      position: relative;
+      width: 100%;
+    }
+    .menu li::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 15px solid white;
+      border-top: 7.5px solid transparent;
+      border-bottom: 7.5px solid transparent;
+    }
+    .menu li.selected {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    .menu li a {
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      z-index: 3;
+      background-color: rgba(0, 0, 0, 0.8);
+      border: 2px solid white;
+      padding: 60px;
+      width: 90%;
+      max-width: 1000px;
+    }
+    .hero-section h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .hero-section h2 {
+      font-size: 24px;
+      margin-bottom: 40px;
+    }
+
+    /* particles.js container */
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #060622;
+      z-index: 1;
+    }
+
+    /* Solana Address Form Styles */
+    .solana-form {
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+      z-index: 2;
+    }
+
+    .solana-label {
+      font-size: 18px;
+      color: white;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .solana-input {
+      width: 80%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 10px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .submit-button {
+      background-color: #00BFFF; /* Light blue color */
+      color: white;
+      font-size: 16px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .submit-button:hover {
+      background-color: #0087b3;
+    }
+
+    /* Loading spinner */
+    .spinner {
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #00BFFF;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      animation: spin 1s linear infinite;
+      margin-top: 10px;
+    }
+
+    .solana-input.disabled {
+      background-color: #555;
+      color: #bbb;
+      border: 2px solid #aaa;
+      pointer-events: none;
+      text-align: center;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="skydrop-page">
+
+<!-- Left bar -->
+<div class="bar-left">
+  <img src="Images/Soft3DCloud.png" alt="Cloud" class="cloud-image">
+  <ul class="menu">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="blastoff.html">Blast Off</a></li>
+    <li class="selected"><a href="skydrop.html">$SKY DROP</a></li>
+    <li><a href="aboutus.html">About Us</a></li>
+    <li><a href="https://t.me/skyholderbot" target="_blank">SkyHolder BOT</a></li>
+  </ul>
+</div>
+
+<!-- Top bar -->
+<div class="bar-top">
+  <div class="header-text">$SKY DROP</div>
+</div>
+
+<!-- Solana Address Form -->
+<div class="solana-form" style="width: 350px; padding: 40px; font-family: 'Press Start 2P', serif;">
+    <label for="solana-address" class="solana-label" style="font-size: 20px; font-family: 'Press Start 2P', serif;">Enter your Solana wallet address to claim airdrop:</label>
+    <input type="text" id="solana-address" class="solana-input" placeholder="Solana address" style="padding: 2px; font-size: 18px; font-family: 'sans', serif;">
+    <button class="submit-button" onclick="submitAddress()">Submit</button>
+    <div id="spinner" class="spinner" style="display: none;"></div>
+</div>
+
+<!-- particles.js container -->
+<div id="particles-js"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+<script>
+particlesJS('particles-js', {
+  particles: {
+    number: {
+      value: 80,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    },
+    color: {
+      value: '#00BFFF' // Default color for particles
+    },
+    shape: {
+      type: 'circle'
+    },
+    opacity: {
+      value: 0.5,
+      random: true,
+      anim: {
+        enable: true,
+        speed: 1,
+        opacity_min: 0.1
+      }
+    },
+    size: {
+      value: 3,
+      random: true,
+      anim: {
+        enable: true,
+        speed: 40,
+        size_min: 0.1
+      }
+    },
+    line_linked: {
+      enable: true,
+      distance: 150,
+      color: '#ffffff',
+      opacity: 0.4,
+      width: 1
+    },
+    move: {
+      enable: true,
+      speed: 1,
+      direction: 'none',
+      random: true,
+      straight: false,
+      out_mode: 'out'
+    }
+  },
+  interactivity: {
+    detect_on: 'canvas',
+    events: {
+      onhover: {
+        enable: true,
+        mode: 'bubble',
+        bubble: {
+          distance: 200,
+          size: 10,
+          duration: 2,
+          opacity: 0.8
+        }
+      },
+      onclick: {
+        enable: true,
+        mode: 'attract'
+      }
+    }
+  },
+  retina_detect: true
+});
+
+function submitAddress() {
+  var address = document.getElementById('solana-address').value;
+  if (address) {
+    // Hide the submit button and show the spinner
+    document.querySelector('.submit-button').style.display = 'none';
+    document.getElementById('spinner').style.display = 'inline-block'; // Show loading spinner
+    document.getElementById('solana-address').disabled = true; // Disable input
+    
+    setTimeout(function() {
+  // After 5 seconds, hide the spinner and show the "Sent" button with checkmark
+  document.getElementById('spinner').style.display = 'none'; // Hide spinner
+  document.querySelector('.submit-button').style.display = 'inline-block'; // Show the submit button
+  document.querySelector('.submit-button').innerHTML = 'Sent &#10004;'; // Change button text to 'Sent' with checkmark
+  document.querySelector('.submit-button').style.backgroundColor = '#555555'; // Darken button
+  // Disable the button to prevent further clicks
+  document.querySelector('.submit-button').disabled = true;
+}, 5000); // 5 seconds delay
+  }
+}
+</script>
+
+</body>
+</html>
+
+
